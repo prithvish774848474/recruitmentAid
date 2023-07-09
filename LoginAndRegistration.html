@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="Prithvish Sarkar">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> Registration Page </title>
+        <meta name="description" content="This page is dedicated for Login or Sign Up of the company">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="LoginAndRegistration.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="container">
+            <form action="#" onsubmit="event => event.target.preventDefault()" method="post">
+                <span id="signUpPoster"> Company SIGN UP </span>
+                <label for="companyName"> Company Name </label>
+                <input id="companyName" type="text" placeholder="Example: Amazon" autofocus required>
+                <label for="companyEmail"> Company Email </label>
+                <input id="companyEmail" type="email" placeholder="Example: no-reply@amazon.com" required>
+                <label for="companySize"> Company Size </label>
+                <select id="companySize" required>
+                    <option value="select" name="noOption"> -- Select -- </option>
+                    <option value="100 employees" name="100 employees"> 100 Employees </option>
+                    <option value="200 employees" name="200 employees"> 200 Employees </option>
+                    <option value="500 employees" name="500 employees"> 500 Employees </option>
+                    <option value="More than 1000 employees" name="More than 1000 employees"> More than 1000 Employees </option>
+                </select>
+                <label for="companyNumber"> Contact Number </label>
+                <input id="companyNumber" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Example: 012-345-6789" required>
+                <label for="companyDescription"> Company Description </label>
+                <textarea id="companyDescription" style="resize: vertical;" placeholder="Example: This is Multi National Company" required></textarea>
+                <label for="companyPassword" onclick="showPassword()"> Generate Password <br> <span> (click to show / hide password) </span> </label>
+                <input id="companyPassword" type="password" required placeholder="Example: qwerty123">
+                <label for="companyCaptcha"></label>
+                <input id="companyCaptcha" type="number" required placeholder="Please fill the Captcha">
+                <span id="rememberMe">
+                    <input type="checkbox" id="rememberMeCheckbox">
+                    <label for="rememberMeCheckbox"> Remember Me? </label>
+                </span>
+                <a href="mailto: support.recruitmentaid.com" target="_blank" onclick="alert('Please send your queries or grievances to support.recruitmentaid.com')"> Need Help? >> Contact Us </a>
+                <button type="submit" onclick="verifyCaptcha()"> SUBMIT DETAILS </button>
+            </form>
+            
+            <form action="#" method="post" onsubmit="event => event.target.preventDefault()" style="display: none">
+                <span id="loginPoster"> Company LOGIN </span>
+                <label for="companyEmailLogin"> Company Email </label>
+                <input id="companyEmailLogin" type="email" placeholder="Example: no-reply@amazon.com" required>
+                <label for="companyPasswordLogin" onclick="showPassword()"> Type your Password <br> <span> (click to show / hide password) </span> </label>
+                <input id="companyPasswordLogin" type="password" required placeholder="Example: qwerty123">
+                <label for="companyCaptchaLogin"></label>
+                <input id="companyCaptchaLogin" type="number" required placeholder="Please fill the Captcha">
+                <span id="rememberMeLogin">
+                    <input type="checkbox" id="rememberMeCheckboxLogin">
+                    <label for="rememberMeCheckbox"> Remember Me? </label>
+                </span>
+                <a href="mailto: support.recruitmentaid.com" target="_blank" onclick="alert('Please send your queries or grievances to support.recruitmentaid.com')"> Need Help? >> Contact Us </a>
+                <button type="submit" onclick="verifyCaptcha()"> SUBMIT DETAILS </button>
+            </form>
+            <div id="backgroundImage">
+                <button type="button" onclick="showLoginPage(event)"> Already have an account ? <br> LOGIN </button>
+                <button type="button" onclick="showSignUpPage(event)" style="display: none;"> Don't have an account ? <br> SIGN UP </button>
+            </div>
+        </div>
+        <script>
+            window.onload = function() {
+                let label = document.querySelector("label[for='companyCaptcha']");
+                label.style.color = "white";
+                label.innerHTML = Math.floor(Math.random() * Math.pow(10, 7));
+            }
+            function showPassword() {
+                let password = document.getElementById("companyPassword");
+                if(password.type === "password") { password.type = "text"; }
+                else { password.type = "password"; }
+                let passwordLogin = document.getElementById("companyPasswordLogin");
+                if(passwordLogin.type === "password") { passwordLogin.type = "text"; }
+                else { passwordLogin.type = "password"; }
+            }
+            function showLoginPage(e) {
+                document.forms[0].style.display = "none";
+                document.forms[1].style.display = "grid";
+                e.target.style.display = "none";
+                let button = document.querySelectorAll("button[type='button']")[1];
+                button.style.display = "block";
+                let label = document.querySelector("label[for='companyCaptchaLogin']");
+                label.innerHTML = Math.floor(Math.random() * Math.pow(10, 7));
+            }
+            function showSignUpPage(e) {
+                document.forms[0].style.display = "grid";
+                document.forms[1].style.display = "none";
+                e.target.style.display = "none";
+                let button = document.querySelectorAll("button[type='button']")[0];
+                button.style.display = "block";
+                let label = document.querySelector("label[for='companyCaptcha']");
+                label.innerHTML = Math.floor(Math.random() * Math.pow(10, 7));
+            }
+            function verifyCaptcha() {
+                let captchaLabel = document.querySelector("label[for='companyCaptcha']");
+                let captchaInput = document.getElementById("companyCaptcha");
+                if(captchaInput.value != captchaLabel.innerHTML) { alert("Wrong Captcha!"); }
+                else { alert("Congratulations! You have successfully registered your company.") }
+                let loginCaptchaLabel = document.querySelector("label[for='companyCaptchaLogin']");
+                let loginCaptchaInput = document.getElementById("companyCaptchaLogin");
+                if(loginCaptchaInput.value != loginCaptchaLabel.innerHTML) { alert("Wrong Captcha!"); }
+                else { alert("Congratulations! You have successfully Logged In.") }
+            }
+        </script>
+    </body>
+</html>
